@@ -1,11 +1,5 @@
-FROM python:3.9.1
-
-WORKDIR /amazon_scrape
-
-COPY requirements.txt .
-
+WORKDIR /app
+COPY ./requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY . .
-
-RUN pip install -r requirements.txt
-
-ENTRYPOINT ["bash"]
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:app"]
